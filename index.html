@@ -1,0 +1,125 @@
+<h1>Clean Architecture Cheat Sheet</h1>
+
+<hr>
+
+<h3>概要</h3>
+
+<ul>
+    <li>Data層<ul>
+            <li>Entity</li>
+            <li>DtataStore</li>
+        </ul>
+    </li>
+    <li>Data層とDomain層の間<ul>
+            <li>Repository</li>
+        </ul>
+    </li>
+    <li>Domain層<ul>
+            <li>UseCase</li>
+            <li>Translator</li>
+            <li>Model</li>
+        </ul>
+    </li>
+    <li>Presentation層<ul>
+            <li>Presenter</li>
+            <li>View</li>
+        </ul>
+    </li>
+</ul>
+
+<h3>Presentation層</h3>
+
+
+<h4>View</h4>
+
+<hr>
+<ul>
+    <li>画面表示</li>
+    <li>ユーザー入力の検知</li>
+    <li>アニメーション </li>
+    <li>Viewは上記リストの何も知らない</li>
+</ul>
+
+<h4>Presetner</h4>
+
+<hr>
+<ul>
+    <li>UseCaseからの値の変更を監視、値の変更を元にViewを操作する</li>
+    <li>Viewのユーザー入力イベントを監視、イベントを元にUseCaseの処理を呼び出す</li>
+    <li>ViewとUseCaseのみ知っている</li>
+</ul>
+
+<h3>Domain層</h3>
+
+
+<h4>UseCase</h4>
+
+<hr>
+<ul>
+    <li>ビジネスロジックの担当</li>
+    <li>Presenterから処理を依頼される</li>
+    <li>Repositoryを通じてDataStoreに処理を依頼する</li>
+    <li>TransLatorを用いて、EntitiyとModelの変換を行う</li>
+    <li>TransLatorとModelにアクセスできる</li>
+</ul>
+
+<h4>Model</h4>
+
+<hr>
+<ul>
+    <li>内部データの表現を担当する</li>
+    <li>ゲーム仕様に特化した形式の内部データを表現する</li>
+    <li>Modelは何にもアクセスできない</li>
+</ul>
+
+<h4>Translator</h4>
+
+<hr>
+<ul>
+    <li>UseCaseから変換の処理を依頼される</li>
+    <li>EntityとModelの相互変換の担当</li>
+    <li>EntitiyとModelにアクセスすることができる</li>
+</ul>
+
+<h3>Domain層とData層の間</h3>
+
+
+<h4>Repository</h4>
+
+<hr>
+<ul>
+    <li>Domain層(UseCase)からData層(DataStore)へのアクセスを担当する</li>
+    <li>DataStoreが複数存在する場合は、RepositoryがDataStoreを切り替えアクセスする</li>
+    <li>DataSoreにアクセスすることができる</li>
+</ul>
+
+<h3>Data層</h3>
+
+
+<h4>DataSore</h4>
+
+<hr>
+<ul>
+    <li>外部とのやり取りを担当する<ul>
+            <li>server</li>
+            <li>storage</li>
+            <li>etc.</li>
+        </ul>
+    </li>
+    <li>外部から取得したデータを元にEntitiyを生成したり、Entitiyの情報を外部に渡したりする</li>
+    <li>DataSoreはEntiryにアクセスすることができる</li>
+</ul>
+
+<h4>Entity</h4>
+
+<hr>
+<ul>
+    <li>外部データの表現を担当<ul>
+            <li>サーバーから取得するデータ</li>
+            <li>ストレージから取得するデータ</li>
+        </ul>
+    </li>
+    <li>データは内部のゲーム仕様に特化したデータに整形せず、外部とのやり取りに特化したデータ形式のまま扱う。</li>
+    <li>他のどの役割のクラスにもアクセスすることができない</li>
+</ul>
+<img src="./Clean_Architecture_Base.png" width="80%">
